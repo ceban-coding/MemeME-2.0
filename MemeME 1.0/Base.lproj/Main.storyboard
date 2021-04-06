@@ -17,13 +17,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6bj-py-Brr">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ed2-Uz-uKM">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="W1i-UV-XZo"/>
-                                    <barButtonItem title="PhotoAlbum" image="photo.fill.on.rectangle.fill" catalog="system" id="hM9-pj-8kQ"/>
+                                    <barButtonItem title="PhotoAlbum" image="photo.fill.on.rectangle.fill" catalog="system" id="hM9-pj-8kQ">
+                                        <connections>
+                                            <action selector="pickAnImageFromAlbum:" destination="BYZ-38-t0r" id="c77-dO-hI7"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="saU-nc-Ha1"/>
                                     <barButtonItem title="Camera" image="camera.fill" catalog="system" id="uyc-DW-J4C">
                                         <connections>
@@ -41,7 +45,11 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gtj-rh-Qte" userLabel="TopToolbar">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="shareButton" image="square.and.arrow.up" catalog="system" id="Qcs-q6-Uy9"/>
+                                    <barButtonItem title="shareButton" image="square.and.arrow.up" catalog="system" id="Qcs-q6-Uy9">
+                                        <connections>
+                                            <action selector="share:" destination="BYZ-38-t0r" id="Nu2-5h-pRy"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Z9q-cB-An8"/>
                                     <barButtonItem title="Cancel" id="QwH-68-wlx"/>
                                 </items>
@@ -69,7 +77,7 @@
                             <constraint firstItem="6bj-py-Brr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fVP-oy-POZ"/>
                             <constraint firstItem="Fz2-1K-HaK" firstAttribute="top" secondItem="gtj-rh-Qte" secondAttribute="bottom" constant="29" id="glu-gm-czz"/>
                             <constraint firstItem="JQT-Mh-XqQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="iuE-4M-jhr"/>
-                            <constraint firstItem="6bj-py-Brr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="tW1-oL-T75"/>
+                            <constraint firstItem="6bj-py-Brr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tW1-oL-T75"/>
                             <constraint firstItem="ed2-Uz-uKM" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="uZw-Ku-M4n"/>
                             <constraint firstItem="Fz2-1K-HaK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="wS0-5s-WJo"/>
                         </constraints>
@@ -78,9 +86,12 @@
                         <outlet property="bottomTextField" destination="JQT-Mh-XqQ" id="Vaf-77-YF5"/>
                         <outlet property="bottomToolbar" destination="ed2-Uz-uKM" id="iNr-1e-y9s"/>
                         <outlet property="cameraButton" destination="uyc-DW-J4C" id="dLq-15-il3"/>
+                        <outlet property="cancelButton" destination="QwH-68-wlx" id="8W6-XG-YBH"/>
                         <outlet property="imagePickerView" destination="6bj-py-Brr" id="HEB-v0-P6h"/>
-                        <outlet property="photoAlbumButton" destination="hM9-pj-8kQ" id="IwI-6B-Yqc"/>
+                        <outlet property="photoAlbumButton" destination="hM9-pj-8kQ" id="chS-tC-5wa"/>
+                        <outlet property="shareButton" destination="Qcs-q6-Uy9" id="qda-zI-ztr"/>
                         <outlet property="topTextField" destination="Fz2-1K-HaK" id="yfW-BP-Ikp"/>
+                        <outlet property="topToolbar" destination="gtj-rh-Qte" id="gM1-gn-IcO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

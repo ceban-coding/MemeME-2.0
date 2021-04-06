@@ -10,9 +10,13 @@ import Foundation
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
+    var memeImage: UIImage!
     
 
     @IBOutlet weak var imagePickerView: UIImageView!
+    @IBOutlet weak var topToolbar: UIToolbar!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var bottomToolbar: UIToolbar!
     @IBOutlet weak var photoAlbumButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -25,14 +29,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // pickAnImageFromLibrary Button
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
         
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
-        self.present(imagePicker, animated: true, completion: nil)
+        let albumPiccker = UIImagePickerController()
+        albumPiccker.delegate = self
+        albumPiccker.sourceType = .photoLibrary
+        albumPiccker.allowsEditing = true
+        self.present(albumPiccker, animated: true, completion: nil)
     }
         
-    
        
     
     // pickAnImageFromCamera Button
@@ -45,6 +48,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
+    @IBAction func share(_ sender: Any) {
+        memeImage = generateImage()
+        let activity = UIActivityViewController(activityItems: [memeImage!], applicationActivities: nil)
+        show(activity, sender: self)
+        activity.completionWithItemsHandler = {(activity, completed, items, error) in
+            if (completed){
+                self.save()
+                return
+            }
+        }
+    }
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             
@@ -56,6 +71,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
            dismiss(animated: true, completion: nil)
+        self.shareButton.isEnabled = false
+        imagePickerView.image = nil
            }
     
     //Textfields
@@ -87,13 +104,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     func prepareView() {
+        
+        //Prepare text fields within image view
+        
         self.topTextField.delegate = self
         self.bottomTextField.delegate = self
         
         self.setTextField(self.topTextField)
         self.setTextField(self.bottomTextField)
+        
+        //share button settings
+        
+        self.shareButton.isEnabled = true
     }
     
+    
+    func hideToolbars(_ hide: Bool) {
+        topToolbar.isHidden = hide
+        bottomToolbar.isHidden = hide
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -104,6 +133,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func generateImage() -> UIImage {
         
         // Hide toolbar and navbar
+        
+        hideToolbars(true)
 
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -112,9 +143,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
+        
+        hideToolbars(false)
 
         return memedImage
     }
+    
+
+    
     
     // MARK: - Keyboard and Notifications
     
@@ -145,11 +181,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Function called when keyboard must be shown and the screen must be moved up
     @objc func keyboardWillShow(_ notification:Notification) {
-        if (bottomTextField.isEditing) { // It must be moved only for bottom text
-            view.frame.origin.y -= getKeyboardHeight(notification)
-        }
+        
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+
+            
+           return
     }
     
+    // move up the picture
+      if bottomTextField.isEditing {
+    self.view.frame.origin.y = 0 - keyboardSize.height
+      }}
+    
+        
     // Function called when screen must be moved down
     @objc func keyboardWillHide(_ notification:Notification) {
         view.frame.origin.y = 0
@@ -163,12 +207,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     
-    // MARK: - Auxiliar functions
-    
-    func setViewControlsToInitialState() {
-        imagePickerView.image = nil
-        
-    }
+   
     
     // Initializing a Meme object
     
