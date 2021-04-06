@@ -60,14 +60,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //Textfields
     func setTextField(_ textField: UITextField) {
-        let textAttributes : [NSAttributedString.Key : Any] = [
+        let memetextAttributes : [NSAttributedString.Key : Any] = [
             .strokeColor: UIColor.black,
             .foregroundColor: UIColor.white,
             .strikethroughColor: UIColor.white,
             .font: UIFont(name: "HelveticaNeue-CondensedBold", size: 40)!,
             .strokeWidth: -3.0
         ]
-        textField.defaultTextAttributes = textAttributes
+        textField.defaultTextAttributes = memetextAttributes
         textField.adjustsFontSizeToFitWidth = true
         textField.textAlignment = .center
         textField.allowsEditingTextAttributes = true
@@ -77,15 +77,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareView()
         
+        
+        subscribeToKeyboardNotifications()
+      
+    }
+    
+    
+    
+    func prepareView() {
         self.topTextField.delegate = self
         self.bottomTextField.delegate = self
         
         self.setTextField(self.topTextField)
         self.setTextField(self.bottomTextField)
-        
     }
-    
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -94,7 +101,84 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
+    func generateImage() -> UIImage {
+        
+        // Hide toolbar and navbar
+
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        // Show toolbar and navbar
+
+        return memedImage
+    }
     
+    // MARK: - Keyboard and Notifications
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+        super.viewWillAppear(animated)
+        subscribeToKeyboardNotifications()
+
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
+    }
+    
+    func subscribeToKeyboardNotifications() {
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+
+    func unsubscribeFromKeyboardNotifications() {
+
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    // MARK: - Functions related to keyboard presentation
+    
+    // Function called when keyboard must be shown and the screen must be moved up
+    @objc func keyboardWillShow(_ notification:Notification) {
+        if (bottomTextField.isEditing) { // It must be moved only for bottom text
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
+    }
+    
+    // Function called when screen must be moved down
+    @objc func keyboardWillHide(_ notification:Notification) {
+        view.frame.origin.y = 0
+    }
+
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
+    }
+
+    
+    // MARK: - Auxiliar functions
+    
+    func setViewControlsToInitialState() {
+        imagePickerView.image = nil
+        
+    }
+    
+    // Initializing a Meme object
+    
+    func save() {
+        
+            _ = Meme(topText: topTextField.text!,
+                bottomText: bottomTextField.text!,
+                originalImage:imagePickerView.image!,
+                memedImage: generateImage())
+                }
     
     }
     

@@ -13,6 +13,7 @@
 		D604352526040CC4002D3767 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D604352326040CC4002D3767 /* Main.storyboard */; };
 		D604352726040CC5002D3767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D604352626040CC5002D3767 /* Assets.xcassets */; };
 		D604352A26040CC5002D3767 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D604352826040CC5002D3767 /* LaunchScreen.storyboard */; };
+		D6ADAF0C261BD6140084E1F8 /* meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6ADAF0B261BD6140084E1F8 /* meme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		D604352626040CC5002D3767 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D604352926040CC5002D3767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D604352B26040CC5002D3767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6ADAF0B261BD6140084E1F8 /* meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				D604352626040CC5002D3767 /* Assets.xcassets */,
 				D604352826040CC5002D3767 /* LaunchScreen.storyboard */,
 				D604352B26040CC5002D3767 /* Info.plist */,
+				D6ADAF0B261BD6140084E1F8 /* meme.swift */,
 			);
 			path = "MemeME 1.0";
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6ADAF0C261BD6140084E1F8 /* meme.swift in Sources */,
 				D604352226040CC4002D3767 /* ViewController.swift in Sources */,
 				D604351E26040CC4002D3767 /* AppDelegate.swift in Sources */,
 				D604352026040CC4002D3767 /* SceneDelegate.swift in Sources */,

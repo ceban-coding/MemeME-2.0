@@ -38,8 +38,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gtj-rh-Qte" userLabel="TopToolbar">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <barButtonItem title="shareButton" image="square.and.arrow.up" catalog="system" id="Qcs-q6-Uy9"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Z9q-cB-An8"/>
+                                    <barButtonItem title="Cancel" id="QwH-68-wlx"/>
+                                </items>
+                            </toolbar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Top Text" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Fz2-1K-HaK">
-                                <rect key="frame" x="20" y="64" width="374" height="49.5"/>
+                                <rect key="frame" x="20" y="117" width="374" height="49.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -51,11 +59,15 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Fz2-1K-HaK" secondAttribute="trailing" constant="20" id="4bK-2w-NbM"/>
                             <constraint firstItem="ed2-Uz-uKM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="NJk-FN-abx"/>
                             <constraint firstItem="ed2-Uz-uKM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Pzw-mZ-xdn"/>
+                            <constraint firstAttribute="trailing" secondItem="gtj-rh-Qte" secondAttribute="trailing" id="UDC-VZ-Fhl"/>
+                            <constraint firstItem="gtj-rh-Qte" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Vhp-vR-KjF"/>
                             <constraint firstItem="6bj-py-Brr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VnX-Ud-mav"/>
+                            <constraint firstItem="gtj-rh-Qte" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="W2J-vv-Ct6"/>
                             <constraint firstItem="ed2-Uz-uKM" firstAttribute="top" secondItem="JQT-Mh-XqQ" secondAttribute="bottom" constant="20" id="Wnq-t6-L4N"/>
-                            <constraint firstItem="Fz2-1K-HaK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="YQZ-69-K6Z"/>
+                            <constraint firstItem="gtj-rh-Qte" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="YQZ-69-K6Z"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JQT-Mh-XqQ" secondAttribute="trailing" constant="20" id="cXW-si-7tc"/>
                             <constraint firstItem="6bj-py-Brr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fVP-oy-POZ"/>
+                            <constraint firstItem="Fz2-1K-HaK" firstAttribute="top" secondItem="gtj-rh-Qte" secondAttribute="bottom" constant="29" id="glu-gm-czz"/>
                             <constraint firstItem="JQT-Mh-XqQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="iuE-4M-jhr"/>
                             <constraint firstItem="6bj-py-Brr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="tW1-oL-T75"/>
                             <constraint firstItem="ed2-Uz-uKM" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="uZw-Ku-M4n"/>
@@ -73,12 +85,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="13.043478260869566" y="88.392857142857139"/>
+            <point key="canvasLocation" x="183" y="163"/>
         </scene>
     </scenes>
     <resources>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="photo.fill.on.rectangle.fill" catalog="system" width="128" height="96"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
