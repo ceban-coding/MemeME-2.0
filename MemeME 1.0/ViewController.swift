@@ -23,28 +23,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     
+    
 
-   
+    
 
     // pickAnImageFromLibrary Button
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-        
-        let albumPiccker = UIImagePickerController()
-        albumPiccker.delegate = self
-        albumPiccker.sourceType = .photoLibrary
-        albumPiccker.allowsEditing = true
-        self.present(albumPiccker, animated: true, completion: nil)
+        pickAnImage(sourceType: .photoLibrary)
     }
         
        
     
     // pickAnImageFromCamera Button
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
-        let cameraController = UIImagePickerController()
-        cameraController.delegate = self
-        cameraController.sourceType = .camera
-        present(cameraController, animated: true, completion: nil)
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        pickAnImage(sourceType: .camera)
     }
     
     
@@ -67,6 +59,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         setViewControlsToInitialState()
     }
     
+
+    
+    // MARK: - image delegate functions
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             
@@ -83,7 +79,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePickerView.image = nil
            }
     
-    //Textfields
+    // MARK: - FUNCTION TO PICK IMAGES FROM ALBUM OR CAMERA
+    
+    func pickAnImage(sourceType: UIImagePickerController.SourceType) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = sourceType
+            present(imagePickerController, animated: true, completion: nil)
+        }
+
+    
+    // MARK: - Textfields
+    
+    
     func setTextField(_ textField: UITextField) {
         let memeTextAttributes : [NSAttributedString.Key : Any] = [
             .strokeColor: UIColor.black,
@@ -103,10 +111,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
-        
-        
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         subscribeToKeyboardNotifications()
-      
     }
     
     
@@ -114,15 +120,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func prepareView() {
         
         //Prepare text fields within image view
-        
         self.topTextField.delegate = self
         self.bottomTextField.delegate = self
-        
         self.setTextField(self.topTextField)
         self.setTextField(self.bottomTextField)
         
         //share button settings
-        
         self.shareButton.isEnabled = true
     }
     
@@ -181,7 +184,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Function called when keyboard must be shown and the screen must be moved up
     @objc func keyboardWillShow(_ notification:Notification) {
         if (bottomTextField.isEditing) { // It must be moved only for bottom text
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
