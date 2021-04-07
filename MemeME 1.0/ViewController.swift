@@ -49,15 +49,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     @IBAction func share(_ sender: Any) {
-        memeImage = generateImage()
-        let activity = UIActivityViewController(activityItems: [memeImage!], applicationActivities: nil)
-        show(activity, sender: self)
-        activity.completionWithItemsHandler = {(activity, completed, items, error) in
-            if (completed){
+        let memedImage = generateImage()
+        let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        activityViewController.completionWithItemsHandler = { activityType, completed, returnedItems, error -> () in
+            if (completed) {
                 self.save()
-                return
+                activityViewController.dismiss(animated: true, completion: nil)
             }
         }
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+
+    
+    
+    @IBAction func cancel(_ sender: Any) {
+        setViewControlsToInitialState()
     }
     
     
@@ -65,6 +72,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             
             if let image = info[.originalImage] as? UIImage{
                 imagePickerView.image = image
+                shareButton.isEnabled = true
             }
             dismiss(animated: true, completion: nil)
          }
@@ -77,14 +85,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //Textfields
     func setTextField(_ textField: UITextField) {
-        let memetextAttributes : [NSAttributedString.Key : Any] = [
+        let memeTextAttributes : [NSAttributedString.Key : Any] = [
             .strokeColor: UIColor.black,
             .foregroundColor: UIColor.white,
             .strikethroughColor: UIColor.white,
             .font: UIFont(name: "HelveticaNeue-CondensedBold", size: 40)!,
             .strokeWidth: -3.0
         ]
-        textField.defaultTextAttributes = memetextAttributes
+        textField.defaultTextAttributes = memeTextAttributes
         textField.adjustsFontSizeToFitWidth = true
         textField.textAlignment = .center
         textField.allowsEditingTextAttributes = true
@@ -167,47 +175,43 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         unsubscribeFromKeyboardNotifications()
     }
     
-    func subscribeToKeyboardNotifications() {
-
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-
-    func unsubscribeFromKeyboardNotifications() {
-
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
     
     // MARK: - Functions related to keyboard presentation
     
     // Function called when keyboard must be shown and the screen must be moved up
     @objc func keyboardWillShow(_ notification:Notification) {
-        
-        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-
-            
-           return
+        if (bottomTextField.isEditing) { // It must be moved only for bottom text
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
     }
-    
-    // move up the picture
-      if bottomTextField.isEditing {
-    self.view.frame.origin.y = 0 - keyboardSize.height
-      }}
     
         
     // Function called when screen must be moved down
     @objc func keyboardWillHide(_ notification:Notification) {
         view.frame.origin.y = 0
     }
+    
+    //Get keyboard size for move the screen
 
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
     }
 
     
-   
+    // MARK: - Subscribe and unsubscribe from keyboard notifications
+    
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    func unsubscribeFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     
     // Initializing a Meme object
     
@@ -218,6 +222,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 originalImage:imagePickerView.image!,
                 memedImage: generateImage())
                 }
-    
+
+
+// Reset view controls tp initial state
+
+    func setViewControlsToInitialState() {
+        imagePickerView.image = nil
+        shareButton.isEnabled = false
+        topTextField.text = Constants.TopStartText
+        bottomTextField.text = Constants.BottomStartText
     }
     
+}
+
