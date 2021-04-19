@@ -13,8 +13,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var memeImage: UIImage!
     
 
+    @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var imagePickerView: UIImageView!
-    @IBOutlet weak var topToolbar: UIToolbar!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var bottomToolbar: UIToolbar!
@@ -57,6 +57,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func cancel(_ sender: Any) {
         setViewControlsToInitialState()
+        
+        dismiss(animated: true, completion: nil)
+        navigationController?.popToRootViewController(animated: true)
     }
     
 
@@ -66,17 +69,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             
-            if let image = info[.originalImage] as? UIImage{
+        
+        guard let image = info[.originalImage] as? UIImage else {return}
+        
+          //  if let image = info[.originalImage] as? UIImage{
                 imagePickerView.image = image
+        
                 shareButton.isEnabled = true
-            }
             dismiss(animated: true, completion: nil)
          }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
            dismiss(animated: true, completion: nil)
-        self.shareButton.isEnabled = false
-        imagePickerView.image = nil
            }
     
     // MARK: - FUNCTION TO PICK IMAGES FROM ALBUM OR CAMERA
@@ -125,15 +129,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.setTextField(self.topTextField)
         self.setTextField(self.bottomTextField)
         
-        //share button settings
-        self.shareButton.isEnabled = true
+      
     }
     
     
-    func hideToolbars(_ hide: Bool) {
-        topToolbar.isHidden = hide
-        bottomToolbar.isHidden = hide
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -141,12 +140,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
-    func generateImage() -> UIImage {
+    @objc func generateImage() -> UIImage {
         
         // Hide toolbar and navbar
+    
+        bottomToolbar.isHidden = true
         
-        hideToolbars(true)
-
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
@@ -155,12 +154,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         // Show toolbar and navbar
         
-        hideToolbars(false)
+        bottomToolbar.isHidden = false
+
 
         return memedImage
     }
     
-
+    
     
     
     // MARK: - Keyboard and Notifications
