@@ -81,10 +81,6 @@ class memeCollectionViewController: UICollectionViewController, UICollectionView
     }
     
    
-    
-    
-    @IBAction func imagePicker(_ sender: Any) {
-        performSegue(withIdentifier: "picker", sender: nil)
-    }
+
     
 }

@@ -75,7 +75,6 @@
 				D6ADAE532628B0F5001D7C05 /* View Controllers */,
 				D604352B26040CC5002D3767 /* Info.plist */,
 				D67E25C6262A21E0001A3D53 /* Model */,
-				D6BC6EAB261D0A1700CE116F /* Constants.swift */,
 			);
 			path = "MemeME 1.0";
 			sourceTree = "<group>";
@@ -92,6 +91,7 @@
 		D67E25C6262A21E0001A3D53 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D6BC6EAB261D0A1700CE116F /* Constants.swift */,
 				D6ADAF0B261BD6140084E1F8 /* meme.swift */,
 			);
 			path = Model;
