@@ -13,26 +13,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var memeImage: UIImage!
     
 
-    @IBOutlet weak var navigationBar: UINavigationItem!
+
     @IBOutlet weak var imagePickerView: UIImageView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var shareButton: UIBarButtonItem!
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var bottomToolbar: UIToolbar!
-    @IBOutlet weak var photoAlbumButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        prepareView()
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        subscribeToKeyboardNotifications()
+        tabBarController?.tabBar.isHidden = true
+    }
 
     
-
+    
+    // MARK: - IBACTIONS
+    
+    
     // pickAnImageFromLibrary Button
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
         pickAnImage(sourceType: .photoLibrary)
     }
-        
-       
     
     // pickAnImageFromCamera Button
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
@@ -56,8 +63,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     @IBAction func cancel(_ sender: Any) {
-        setViewControlsToInitialState()
         
+        shareButton.isEnabled = false
+        imagePickerView.image = nil
         dismiss(animated: true, completion: nil)
         navigationController?.popToRootViewController(animated: true)
     }
@@ -93,7 +101,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
 
     
-    // MARK: - Textfields
+    // MARK: - Setting Textfields
     
     
     func setTextField(_ textField: UITextField) {
@@ -112,28 +120,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        prepareView()
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        subscribeToKeyboardNotifications()
-    }
-    
-    
-    
-    func prepareView() {
-        
-        //Prepare text fields within image view
-        self.topTextField.delegate = self
-        self.bottomTextField.delegate = self
-        self.setTextField(self.topTextField)
-        self.setTextField(self.bottomTextField)
-        
-      
-    }
-    
-    
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true;
@@ -143,16 +129,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func generateImage() -> UIImage {
         
         
+        // Hide ToolBar and NavBar
+        navigationBar.isHidden = true
+        bottomToolbar.isHidden = true
+        
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-
+        // Show ToolBar and Navbar
+        navigationBar.isHidden = false
+        bottomToolbar.isHidden = false
         return memedImage
     }
     
+    // MARK: - PREPARE VIEW FUNCTION
+    
+    func prepareView() {
+        
+        //Prepare text fields within image view
+        self.topTextField.delegate = self
+        self.bottomTextField.delegate = self
+        self.setTextField(self.topTextField)
+        self.setTextField(self.bottomTextField)
+    }
     
     
     
@@ -219,10 +221,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 memedImage: generateImage())
         
         // Add it to the memes array in the Application Delegate
-        _ = UIApplication.shared.delegate
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
         appDelegate.memes.append(meme)
-                }
+        dismiss(animated: true, completion: nil)
+    }
 
     
 
