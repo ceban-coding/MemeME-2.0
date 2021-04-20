@@ -140,11 +140,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
-    @objc func generateImage() -> UIImage {
+    func generateImage() -> UIImage {
         
-        // Hide toolbar and navbar
-    
-        bottomToolbar.isHidden = true
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -152,10 +149,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        // Show toolbar and navbar
-        
-        bottomToolbar.isHidden = false
-
 
         return memedImage
     }
@@ -219,13 +212,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Initializing a Meme object
     
     func save() {
-        
-            _ = Meme(topText: topTextField.text!,
+        // Create the meme
+        let meme = Meme(topText: topTextField.text!,
                 bottomText: bottomTextField.text!,
                 originalImage:imagePickerView.image!,
                 memedImage: generateImage())
+        
+        // Add it to the memes array in the Application Delegate
+        _ = UIApplication.shared.delegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.memes.append(meme)
                 }
 
+    
 
 // Reset view controls tp initial state
 

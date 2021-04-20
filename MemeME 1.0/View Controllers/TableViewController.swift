@@ -62,7 +62,7 @@ class TableViewController: UITableViewController {
     
     
     @IBAction func imagePicker(_ sender: Any) {
-        performSegue(withIdentifier: "picker", sender: nil)
+        
     }
     
 }
