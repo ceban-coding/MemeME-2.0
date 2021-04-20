@@ -19,6 +19,10 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+                self.navigationItem.leftBarButtonItem = self.editButtonItem
+                tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -42,7 +46,7 @@ class TableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "memeTableView", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemeSentTableViewCell", for: indexPath) as! TableViewCell
         let memeForRow = memes[indexPath.row]
         cell.imageView?.image = memeForRow.memedImage
         cell.textLabel?.text = memeForRow.topText + "..." + memeForRow.bottomText

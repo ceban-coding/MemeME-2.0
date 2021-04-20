@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Foundation
+import Photos
 
 // private let reuseIdentifier = "Cell"
 
@@ -20,6 +22,9 @@ class memeCollectionViewController: UICollectionViewController, UICollectionView
         let appDelegate = object as! AppDelegate
         return appDelegate.memes
     }
+    
+    var assetCollection: PHAssetCollection!
+    var photoAsset: PHFetchResult<PHAsset>!
     
     //MARK: Lifecycle functions
     override func viewDidLoad() {
@@ -64,20 +69,23 @@ class memeCollectionViewController: UICollectionViewController, UICollectionView
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "memeCollectionViewCell", for: indexPath) as! memeCollectionViewCell
         let memeForCell = memes[indexPath.row]
         cell.imageViewCollection.image = memeForCell.memedImage
-    
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 100, height: 100)
+    }
+    
     
      override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         // Grab the DetailVC from Storyboard
             let detailController = self.storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
 
             //Populate view controller with data from the selected item
-            detailController.meme = memes[(indexPath as NSIndexPath).row]
+        detailController.m_image = memes[(indexPath as NSIndexPath).row].memedImage
 
             // Present the view controller using navigation
-            navigationController!.pushViewController(detailController, animated: true)
+        self.navigationController!.pushViewController(detailController, animated: true)
     }
     
    
