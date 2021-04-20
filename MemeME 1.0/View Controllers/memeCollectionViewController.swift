@@ -7,7 +7,6 @@
 
 import UIKit
 import Foundation
-import Photos
 
 // private let reuseIdentifier = "Cell"
 
@@ -23,8 +22,6 @@ class memeCollectionViewController: UICollectionViewController, UICollectionView
         return appDelegate.memes
     }
     
-    var assetCollection: PHAssetCollection!
-    var photoAsset: PHFetchResult<PHAsset>!
     
     //MARK: Lifecycle functions
     override func viewDidLoad() {
@@ -67,8 +64,8 @@ class memeCollectionViewController: UICollectionViewController, UICollectionView
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "memeCollectionViewCell", for: indexPath) as! memeCollectionViewCell
-        let memeForCell = memes[indexPath.row]
-        cell.imageViewCollection.image = memeForCell.memedImage
+        let meme = self.memes[(indexPath as NSIndexPath).row]
+        cell.imageViewCollection?.image = meme.memedImage
         return cell
     }
 
@@ -77,15 +74,15 @@ class memeCollectionViewController: UICollectionViewController, UICollectionView
     }
     
     
-     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Grab the DetailVC from Storyboard
-            let detailController = self.storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
+                   let detailController = self.storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
 
-            //Populate view controller with data from the selected item
-        detailController.m_image = memes[(indexPath as NSIndexPath).row].memedImage
+                   //Populate view controller with data from the selected item
+                   detailController.meme = memes[(indexPath as NSIndexPath).row]
 
-            // Present the view controller using navigation
-        self.navigationController!.pushViewController(detailController, animated: true)
+                   // Present the view controller using navigation
+                   navigationController!.pushViewController(detailController, animated: true)
     }
     
    

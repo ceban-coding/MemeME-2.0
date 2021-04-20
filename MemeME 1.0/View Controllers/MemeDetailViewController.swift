@@ -5,23 +5,22 @@
 //  Created by Ion Ceban on 4/16/21.
 //
 
+import Foundation
 import UIKit
 
 class MemeDetailViewController: UIViewController {
     
-    var meme : Meme?
-    
+  
     //MARK: Outlets
     
     
     @IBOutlet weak var imageView: UIImageView!
     
-    var m_image:UIImage = UIImage()
+    var meme : Meme!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
-        imageView.image = m_image
+        self.imageView.image = meme.memedImage
     }
     
     override func viewWillDisappear(_ animated: Bool) {

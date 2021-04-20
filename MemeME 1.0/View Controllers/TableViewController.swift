@@ -5,10 +5,13 @@
 //  Created by Ion Ceban on 4/16/21.
 //
 
+import Foundation
 import UIKit
 
 class TableViewController: UITableViewController {
     
+
+    @IBOutlet var memeTableView: TableViewController!
     
     
     var memes: [Meme]! {
@@ -20,25 +23,29 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let dimension = (view.frame.size.height / 10)
+        tableView.rowHeight = dimension
         //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-                self.navigationItem.leftBarButtonItem = self.editButtonItem
-                tableView.reloadData()
+               // self.navigationItem.leftBarButtonItem = self.editButtonItem
+               // tableView.reloadData()
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
-    }
+   
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         tableView.reloadData()
         tabBarController?.tabBar.isHidden = false
-        
     }
     
+  
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return memes.count
@@ -60,7 +67,7 @@ class TableViewController: UITableViewController {
             detailController.meme = memes[(indexPath as NSIndexPath).row]
 
             // Present the view controller using navigation
-        self.navigationController!.pushViewController(detailController, animated: true)
+            navigationController!.pushViewController(detailController, animated: true)
     }
     
 }

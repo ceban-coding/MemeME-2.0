@@ -79,12 +79,39 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemeSentTableViewCell" id="xcs-56-a2G" customClass="TableViewCell" customModule="MemeME_1_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xcs-56-a2G" id="TcQ-pa-eEd">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xcs-56-a2G" id="TcQ-pa-eEd" customClass="TableViewCell" customModule="MemeME_1_0" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Nb-gw-Xk1">
+                                            <rect key="frame" x="287" y="12.5" width="107" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MNq-7F-7g2">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="44.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="YLi-uH-tRA"/>
+                                                <constraint firstAttribute="width" constant="150" id="oRR-Ea-3xb"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="MNq-7F-7g2" firstAttribute="leading" secondItem="TcQ-pa-eEd" secondAttribute="leading" id="FOA-G0-dEQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="MNq-7F-7g2" secondAttribute="bottom" id="H6E-qD-CY4"/>
+                                        <constraint firstItem="6Nb-gw-Xk1" firstAttribute="leading" secondItem="MNq-7F-7g2" secondAttribute="trailing" constant="137" id="KPm-dq-udm"/>
+                                        <constraint firstItem="MNq-7F-7g2" firstAttribute="top" secondItem="TcQ-pa-eEd" secondAttribute="top" id="ODF-h1-mWd"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="6Nb-gw-Xk1" secondAttribute="bottom" id="reY-nG-bGu"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="6Nb-gw-Xk1" secondAttribute="trailing" id="z4P-SC-iub"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="memeLabel" destination="6Nb-gw-Xk1" id="jk9-c8-U56"/>
+                                    <outlet property="sentMemeTableView" destination="MNq-7F-7g2" id="MVO-t1-0vj"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -100,6 +127,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="memeTableView" destination="rfi-en-NRv" id="yQY-jE-6YF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uBs-Ql-bMj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

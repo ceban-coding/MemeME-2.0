@@ -10,8 +10,8 @@ import UIKit
 class TableViewCell: UITableViewCell {
     
     
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var subtitle: UILabel!
+    @IBOutlet weak var sentMemeTableView: UIImageView!
+    @IBOutlet weak var memeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

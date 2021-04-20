@@ -10,9 +10,6 @@ import Foundation
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
-    var memeImage: UIImage!
-    
-
 
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var navigationBar: UINavigationBar!
@@ -142,20 +139,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func generateImage() -> UIImage {
         
         
-        // Hide ToolBar and NavBar
-        navigationBar.isHidden = true
-        bottomToolbar.isHidden = true
+        hideTopAndBottomBars(true)
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+
+        hideTopAndBottomBars(true)
         
-        // Show ToolBar and Navbar
-        navigationBar.isHidden = false
-        bottomToolbar.isHidden = false
         return memedImage
+    }
+    
+    func hideTopAndBottomBars(_ hide: Bool) {
+        navigationBar.isHidden = true
+        bottomToolbar.isHidden = true
     }
     
     // MARK: - PREPARE VIEW FUNCTION
@@ -219,8 +218,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     
