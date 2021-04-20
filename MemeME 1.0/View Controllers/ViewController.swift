@@ -39,10 +39,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // pickAnImageFromLibrary Button
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
         pickAnImage(sourceType: .photoLibrary)
+        
     }
     
     // pickAnImageFromCamera Button
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
+        if !isCameraAvailable() {
+            return
+        }
         pickAnImage(sourceType: .camera)
     }
     
@@ -81,9 +85,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let image = info[.originalImage] as? UIImage else {return}
         
           //  if let image = info[.originalImage] as? UIImage{
-                imagePickerView.image = image
-        
-                shareButton.isEnabled = true
+            imagePickerView.image = image
+            shareButton.isEnabled = true
             dismiss(animated: true, completion: nil)
          }
     
@@ -96,9 +99,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func pickAnImage(sourceType: UIImagePickerController.SourceType) {
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self
+            imagePickerController.allowsEditing = true
             imagePickerController.sourceType = sourceType
             present(imagePickerController, animated: true, completion: nil)
+        
+        
         }
+    
+    // Disable the camera
+    func isCameraAvailable() -> Bool{
+        return UIImagePickerController.isSourceTypeAvailable(.camera)
+    }
+    
 
     
     // MARK: - Setting Textfields
@@ -225,6 +237,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let appDelegate = object as! AppDelegate
         appDelegate.memes.append(meme)
         dismiss(animated: true, completion: nil)
+        
     }
 
     

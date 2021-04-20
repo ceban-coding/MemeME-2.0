@@ -165,7 +165,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6bj-py-Brr">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6bj-py-Brr">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
@@ -194,7 +194,7 @@
                                 </items>
                             </toolbar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Top Text" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Fz2-1K-HaK">
-                                <rect key="frame" x="20" y="86" width="374" height="49.5"/>
+                                <rect key="frame" x="20" y="56" width="374" height="49.5"/>
                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -230,8 +230,8 @@
                             <constraint firstItem="6bj-py-Brr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VnX-Ud-mav"/>
                             <constraint firstItem="ed2-Uz-uKM" firstAttribute="top" secondItem="JQT-Mh-XqQ" secondAttribute="bottom" constant="30" id="Wnq-t6-L4N"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JQT-Mh-XqQ" secondAttribute="trailing" constant="20" id="cXW-si-7tc"/>
+                            <constraint firstItem="Fz2-1K-HaK" firstAttribute="top" secondItem="Ikt-4l-rby" secondAttribute="bottom" id="chx-PU-9n9"/>
                             <constraint firstItem="6bj-py-Brr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fVP-oy-POZ"/>
-                            <constraint firstItem="Fz2-1K-HaK" firstAttribute="top" secondItem="Ikt-4l-rby" secondAttribute="bottom" constant="30" id="gCO-ui-SdO"/>
                             <constraint firstItem="JQT-Mh-XqQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="iuE-4M-jhr"/>
                             <constraint firstItem="6bj-py-Brr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tW1-oL-T75"/>
                             <constraint firstItem="ed2-Uz-uKM" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="uZw-Ku-M4n"/>
